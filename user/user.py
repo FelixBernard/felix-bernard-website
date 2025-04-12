@@ -22,6 +22,6 @@ class Member(User):
         self.second_name = None
         
 class Client(User):
-    def __init__(self, rank):
+    def __init__(self):
         super().__init__("client")
         self.client_id = None

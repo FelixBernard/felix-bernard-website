@@ -18,7 +18,9 @@ def before():
 
 @views.route("/")
 def main():
-    return "Moin"
+    tmp_user = set_up_user(request, make_response(render_template("auth/profile.html")))
+    tmp_user.response = make_response(render_template("main/index.html", user=tmp_user))
+    return tmp_user.response
 
 @views.route("/profile")
 def profile():
