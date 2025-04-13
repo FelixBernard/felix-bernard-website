@@ -1,9 +1,89 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 a {
     text-decoration: none;
-    color: white;
+    color: rgb(4, 201, 255);
 }
 
 .box {
-    background-color: red;
+    background-color: transparent;
+    backdrop-filter: blur(5px);
     padding: 10rem;
+    margin: 4rem;
+
+}
+
+.shine-box {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    height: auto;
+    background: rgba(30, 30, 30, 0.8);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow:
+      /* 0 10px 30px rgba(0, 0, 0, 0.5), */
+      inset 0 0 20px rgba(255, 255, 255, 0.05);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    text-align: center;
+    padding: 1rem;
+    margin: 2rem;
+    transition: 0.3s;
+  }
+  
+/* Der Glanzlayer */
+.shine-effect {
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent 40%,
+        rgba(255, 255, 255, 0.15) 45%,
+        rgba(255, 255, 255, 0.4) 47%,
+        rgba(0, 255, 255, 0.3) 49%,
+        transparent 55%
+    );
+    filter: blur(2px);
+    animation: none;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.shine-box:hover .shine-effect {
+    animation: shineSlide 1s ease;
+    
+}
+
+.shine-box:hover{
+    transform: scale(1.04);
+}
+
+/* Animation: zieht von links nach rechts */
+@keyframes shineSlide {
+    0% {
+        left: -120%;
+    }
+    /* 35% {
+        left: 100%;
+    } */
+    100% {
+        left: 100%;
+    }
+}
+
+/* Text bleibt über allem */
+.shine-box p {
+    position: relative;
+    z-index: 2;
 }
