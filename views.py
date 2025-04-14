@@ -3,12 +3,13 @@ from flask import jsonify, request, render_template, make_response, send_file, s
 import redis
 from scripts.pdf import erstelle_latex_pdf
 from scripts.user_handling import set_up_user
+from server_config import *
 
 views = flask.Blueprint(__name__, "views")
 
 @views.before_request
 def before():
-    if (request.cookies.get("user") == "admin"):
+    if (request.cookies.get(COOKIE_KEY) == COOKIE_VALUE):
         pass
     else:
         r = redis.Redis(host='localhost', port=6379, db=0)
@@ -33,6 +34,9 @@ def profile():
 
 @views.route("/pdf")
 def pdf():
+    tmp_user = set_up_user(request, make_response(render_template("auth/profile.html")))
+    if tmp_user.rank == 'client':
+        abort(401)
     erstelle_latex_pdf("nutzer_info", {"Name": "Felix", "Alter": 21, "Stadt": "Jugenheim"})
     return send_file("nutzer_info.pdf")
 
