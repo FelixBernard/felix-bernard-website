@@ -19,8 +19,14 @@ def before():
 
 @views.route("/")
 def main():
-    tmp_user = set_up_user(request, make_response(render_template("auth/profile.html")))
+    tmp_user = set_up_user(request, make_response(render_template("main/index.html")))
     tmp_user.response = make_response(render_template("main/index.html", user=tmp_user))
+    return tmp_user.response
+
+@views.route("/projects")
+def projects():
+    tmp_user = set_up_user(request, make_response(render_template("main/projects.html")))
+    tmp_user.response = make_response(render_template("main/projects.html", user=tmp_user))
     return tmp_user.response
 
 @views.route("/profile")
@@ -53,3 +59,7 @@ def io():
         return jsonify(message="Server wurde hochgefahren"), 503
     r.set("SHUTTING_DOWN", "true")
     return jsonify(message="Server wurde heruntergefahren")
+
+@views.route("/<rest>")
+def rest(rest):
+    abort(401)
