@@ -5,7 +5,7 @@ def init_query(query):
         host="localhost",
         user="root",
         passwd=SQL_TOKEN,
-        database="muj",
+        database="fw",
         auth_plugin='mysql_native_password',
         autocommit=False
     )
@@ -28,7 +28,7 @@ def universel_db_query(query, with_col_names:bool=True):
         host="localhost",
         user="root",
         passwd=SQL_TOKEN,
-        database="muj",
+        database="fw",
         auth_plugin='mysql_native_password',
         # autocommit=False
     )

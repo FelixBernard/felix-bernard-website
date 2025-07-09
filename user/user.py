@@ -1,9 +1,14 @@
+import sql.sql as sql
+
 class User:
     def __init__(self, rank):
         self.hash = self.__hash__
         self.rank = rank
         self.response = None
         self.cookie = None
+
+    def load(self):
+        infos, err = sql.universel_db_query("Select * from ")
 
 class Admin(User):
     def __init__(self):

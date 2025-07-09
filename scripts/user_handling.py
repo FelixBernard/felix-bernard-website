@@ -1,4 +1,4 @@
-from user.user import User,Admin,Client
+from user.user import User, Admin, Client
 from server_config import *
 
 def set_up_user(request, response):
@@ -9,4 +9,5 @@ def set_up_user(request, response):
     else:
         tmp_user = Client()
         tmp_user.response = response
+        tmp_user.load()
         return tmp_user
