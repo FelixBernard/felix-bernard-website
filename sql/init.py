@@ -12,19 +12,19 @@ def create_general_rank_table() -> bool:
     init_query("CREATE TABLE userrank (id text, rank text)", main_db_plus_database)
 
 def create_general_client_session_id_table() -> bool:
-    init_query("CREATE TABLE clientsession (id text, session_id text, ip text, time_stemp text)", main_db_plus_database)
+    init_query("CREATE TABLE clientsession (id text not null Auto_increment, session_id text, ip text, time_stemp text, useragent text, PRIMARY KEY (id))", main_db_plus_database)
 
 def create_general_client_table() -> bool:
-    init_query("CREATE TABLE client (id text, ip_adress text, time_stemp text)", main_db_plus_database)
+    init_query("CREATE TABLE client (id text not null Auto_increment, ip_adress text, time_stemp text, PRIMARY KEY (id))", main_db_plus_database)
 
 def create_general_member_table() -> bool:
-    init_query("CREATE TABLE member (id text, email text, ip_adress text, entry_date text, first_name text, last_name text, street text, house_number text, town text, town_number text, country text)", main_db_plus_database)
+    init_query("CREATE TABLE member (id text not null Auto_increment, email text, ip_adress text, entry_date text, first_name text, last_name text, street text, house_number text, town text, town_number text, country text, PRIMARY KEY (id))", main_db_plus_database)
 
 def create_general_member_session_id_table() -> bool:
     init_query("CREATE TABLE membersession (id text, session_id text, ip text, time_stemp text)", main_db_plus_database)
 
 def create_general_admin_table() -> bool:
-    init_query("CREATE TABLE admin (id text, email text, ip_adress text, entry_date text, first_name text, last_name text)", main_db_plus_database)
+    init_query("CREATE TABLE admin (id text not null Auto_increment, email text, ip_adress text, entry_date text, first_name text, last_name text, PRIMARY KEY (id))", main_db_plus_database)
 
 def create_general_admin_session_id_table() -> bool:
     init_query("CREATE TABLE adminsession (id text, session_id text, time_stemp	text)", main_db_plus_database)
@@ -46,20 +46,20 @@ def create_member_folder(id):
     os.makedirs(f'data/user/individual/m{id}')
 
 
-def create_shop_product_table():
-    init_query("CREATE TABLE product (name text, product_id text, buy_price float, buy_sale bool, buy_sale_percent float, buy_sale_price float, rent_price float, rent_sale bool, rent_sale_percent float, rent_sale_price float, description text, to_rent bool, to_buy bool, new_flag bool, height float, width float, deepths float, img text)", main_db_plus_database)
+# def create_shop_product_table():
+#     init_query("CREATE TABLE product (name text, product_id text, buy_price float, buy_sale bool, buy_sale_percent float, buy_sale_price float, rent_price float, rent_sale bool, rent_sale_percent float, rent_sale_price float, description text, to_rent bool, to_buy bool, new_flag bool, height float, width float, deepths float, img text)", main_db_plus_database)
 
-def create_shop_object_table():
-    init_query("CREATE TABLE object (object_id text, rest text)", main_db_plus_database)
+# def create_shop_object_table():
+#     init_query("CREATE TABLE object (object_id text, rest text)", main_db_plus_database)
 
-def create_shop_bundle_table():
-    init_query("CREATE TABLE bundle (name text, bundle_id int, description text, img text)", main_db_plus_database)
+# def create_shop_bundle_table():
+#     init_query("CREATE TABLE bundle (name text, bundle_id int, description text, img text)", main_db_plus_database)
 
-def create_shop_item_table():
-    init_query("CREATE TABLE item (item_id text, product_id_key text, added text, produced text)", main_db_plus_database)
+# def create_shop_item_table():
+#     init_query("CREATE TABLE item (item_id text, product_id_key text, added text, produced text)", main_db_plus_database)
 
-def create_shop_include_table():
-    init_query("CREATE TABLE include (bundle_id_key int, product_id_key int)", main_db_plus_database)
+# def create_shop_include_table():
+#     init_query("CREATE TABLE include (bundle_id_key int, product_id_key int)", main_db_plus_database)
 
 
 def create_news_table():

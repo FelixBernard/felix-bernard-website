@@ -115,7 +115,7 @@ def search_for_admin_key(key) -> int:
     # print_in_file(f'sql/search for admin key -- i[0] = {foo}, err: {err}')
     return foo[0]["id"]
         
-def search_for__existing_admin_key(key) -> int:
+def search_for_existing_admin_key(key) -> int:
     foo = universel_db_query(f"SELECT veri FROM adminveri WHERE veri = '{key}'")
     # print_in_file(f'sql/search for admin key -- foo = {foo}')
     return foo

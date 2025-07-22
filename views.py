@@ -9,7 +9,7 @@ views = flask.Blueprint(__name__, "views")
 
 @views.before_request
 def before():
-    if (request.cookies.get(COOKIE_KEY) == COOKIE_VALUE):
+    if (request.cookies.get(COOKIE_KEY) == SECRET_KEY):
         pass
     else:
         r = redis.Redis(host='localhost', port=6379, db=0)
