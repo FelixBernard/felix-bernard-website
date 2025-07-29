@@ -4,13 +4,14 @@ import sql.init as init_files
 import sql.sql as sql
 from user.user import Admin
 from scripts.func import hash_in
+from server_config import SALT
 
 def count_clients():
     return 0
 
 def init_server():
     # Alle DB's für Nutzer erzeugen
-    # init_files.create_database('muj')
+    # init_files.create_database('fw')
     init_files.create_general_user_table()
     init_files.create_general_client_table()
     init_files.create_general_client_session_id_table()
@@ -99,7 +100,7 @@ def new_admin():
     admin = Admin(email=e_mail)
     admin.set_new_admin(True)
     print('Das ist der Admin key (Als "key" cookie im Browser anlegen)', admin.key)
-    sql.insert_general_user_table(admin.email, hash_in(f'{password}rr834fd'))
+    sql.insert_general_user_table(admin.email, hash_in(f'{password}{SALT}'))
     sql.init_query(f"Update adminveri set active = 1 where id = '{admin.id}'")
 
 def try_info():

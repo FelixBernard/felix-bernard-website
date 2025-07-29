@@ -62,20 +62,21 @@ def universel_db_query_on_maindb(query):
 def insert_general_user_table(email, password) -> bool:
     init_query(f"INSERT INTO user VALUES ('{email}', '{password}')")
 
-def insert_general_client_table(client_id, ip_adress, time_stemp) -> bool:
-    init_query(f"INSERT INTO client VALUES ('{client_id}', '{ip_adress}', '{time_stemp}')")
+def insert_general_client_table(client_id, ip, time_stemp) -> bool:
+    init_query(f"INSERT INTO client VALUES ('{client_id}', '{ip}', '{time_stemp}')")
 
-def insert_general_client_session_id_table(client_id, client_session_id, ip, time_stemp) -> bool:
-    init_query(f"INSERT INTO clientsession VALUES ('{client_id}', '{client_session_id}', '{ip}', '{time_stemp}')")
+def insert_general_client_session_id_table(client_session_id, ip, time_stemp, user_agent) -> bool:
+    print(f"INSERT INTO (session_id, ip, time_stemp, useragent) clientsession VALUES ('{client_session_id}', '{ip}', '{time_stemp}', '{user_agent}')")
+    init_query(f"INSERT INTO clientsession (session_id, ip, time_stemp, useragent) VALUES ('{client_session_id}', '{ip}', '{time_stemp}', '{user_agent}')")
 
 def insert_general_member_table(member) -> bool:
-    init_query(f"INSERT INTO member VALUES ('{member.id}', '{member.email}', '{member.ip_adress}', '{member.entry_date}', '{member.first_name}', '{member.last_name}', '{member.street}', '{member.house_number}', '{member.town}', '{member.town_number}', '{member.country}')")
+    init_query(f"INSERT INTO member VALUES ('{member.id}', '{member.email}', '{member.ip}', '{member.entry_date}', '{member.first_name}', '{member.last_name}', '{member.street}', '{member.house_number}', '{member.town}', '{member.town_number}', '{member.country}')")
 
 def insert_general_member_session_id_table(member_id, member_session_id, ip, entry_date) -> bool:
     init_query(f"INSERT INTO membersession VALUES ('{member_id}', '{member_session_id}', '{ip}', '{entry_date}')")
 
 def insert_general_admin_table(admin) -> bool:
-    init_query(f"INSERT INTO admin VALUES ('{admin.id}', '{admin.email}', '{admin.ip_adress}', '{admin.entry_date}', '{admin.first_name}', '{admin.last_name}')")
+    init_query(f"INSERT INTO admin (email, ip, entry_date, name, second_name) VALUES ('{admin.email}', '{admin.ip}', '{admin.entry_date}', '{admin.name}', '{admin.second_name}')")
 
 def insert_general_admin_session_id_table(admin_id, admin_session_id, time_stemp) -> bool:
     init_query(f"INSERT INTO adminsession VALUES ('{admin_id}', '{admin_session_id}', '{time_stemp}')")
@@ -96,9 +97,11 @@ def insert_log(time, kind, status, mas):
 
 def search_for_cookie(rank, cookie) -> int:
     # print_in_file('sql/search_for_cookie -- searche for cookie:' + str(cookie))
-    foo =  universel_db_query(f"SELECT id FROM {rank}session WHERE session_id = '{cookie}'", False, True)
+    foo =  universel_db_query(f"SELECT id FROM {rank}session WHERE session_id = '{cookie}'", False)
     # x = foo[0]["id"]
     # print(f"sql/search_for_cookie ---- rank: {rank}, foo[0][id]: {x}, err: {err}, cookie: {cookie}")
+    if (len(foo) == 0):
+        return -1
     return foo[0]["id"]
 
 def search_for_client_cookie(cookie):
@@ -111,7 +114,7 @@ def search_for_admin_cookie(cookie):
     return search_for_cookie('admin', cookie)
 
 def search_for_admin_key(key) -> int:
-    foo= universel_db_query(f"SELECT id FROM adminveri WHERE veri = '{key}'", False, True)
+    foo = universel_db_query(f"SELECT id FROM adminveri WHERE veri = '{key}'", False, True)
     # print_in_file(f'sql/search for admin key -- i[0] = {foo}, err: {err}')
     return foo[0]["id"]
         
@@ -147,7 +150,7 @@ def get_user(rank, cookie) -> int:
     return foo
 
 def get_client(id) -> list:
-    foo = universel_db_query(f"SELECT * FROM client WHERE id = '{id}'")
+    foo = universel_db_query(f"SELECT * FROM clientsession WHERE id = '{id}'")
     return foo[1]
 
 def get_member(id) -> list:
@@ -212,7 +215,7 @@ def search_blocked_ip(ip):
     
 
 def tryyy_info() -> None:
-    foo = universel_db_query(f"SELECT count(id), ip_adress FROM client group by ip_adress having count(id) > 1 order by ip_adress asc")
+    foo = universel_db_query(f"SELECT count(id), ip FROM client group by ip having count(id) > 1 order by ip asc")
     for result in foo:
         print(result)
 

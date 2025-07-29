@@ -38,11 +38,11 @@ def generate_confirmation_code(size=6, chars=string.ascii_uppercase + string.dig
 
 def create_key() -> str:
     key = generate_confirmation_code(30)
-    ex_key, err = search_for_existing_admin_key(key)
+    ex_key = search_for_existing_admin_key(key)
     while len(ex_key) >= 2:
         print(ex_key, key)
         key = generate_confirmation_code(30)
-        ex_key, err = search_for_existing_admin_key(key)
+        ex_key = search_for_existing_admin_key(key)
     return key
 
 def chech_for_lenth(item):

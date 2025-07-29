@@ -6,41 +6,41 @@ from sql.db_connector import main_db_plus_database
 #    init_query(f"CREATE DATABASE {name}", main_db_minus_database)
 
 def create_general_user_table() -> bool:
-    init_query("CREATE TABLE user (email text, password text)", main_db_plus_database)
+    init_query("CREATE TABLE user (email text, password text)")
 
 def create_general_rank_table() -> bool:
-    init_query("CREATE TABLE userrank (id text, rank text)", main_db_plus_database)
+    init_query("CREATE TABLE userrank (id int, rank text)")
 
 def create_general_client_session_id_table() -> bool:
-    init_query("CREATE TABLE clientsession (id text not null Auto_increment, session_id text, ip text, time_stemp text, useragent text, PRIMARY KEY (id))", main_db_plus_database)
+    init_query("CREATE TABLE clientsession (id int not null Auto_increment, session_id text, ip text, time_stemp text, useragent text, PRIMARY KEY (id))")
 
 def create_general_client_table() -> bool:
-    init_query("CREATE TABLE client (id text not null Auto_increment, ip_adress text, time_stemp text, PRIMARY KEY (id))", main_db_plus_database)
+    init_query("CREATE TABLE client (id int not null Auto_increment, ip text, time_stemp text, PRIMARY KEY (id))")
 
 def create_general_member_table() -> bool:
-    init_query("CREATE TABLE member (id text not null Auto_increment, email text, ip_adress text, entry_date text, first_name text, last_name text, street text, house_number text, town text, town_number text, country text, PRIMARY KEY (id))", main_db_plus_database)
+    init_query("CREATE TABLE member (id int not null Auto_increment, email text, ip text, entry_date text, first_name text, last_name text, street text, house_number text, town text, town_number text, country text, PRIMARY KEY (id))")
 
 def create_general_member_session_id_table() -> bool:
-    init_query("CREATE TABLE membersession (id text, session_id text, ip text, time_stemp text)", main_db_plus_database)
+    init_query("CREATE TABLE membersession (id int, session_id text, ip text, time_stemp text)")
 
 def create_general_admin_table() -> bool:
-    init_query("CREATE TABLE admin (id text not null Auto_increment, email text, ip_adress text, entry_date text, first_name text, last_name text, PRIMARY KEY (id))", main_db_plus_database)
+    init_query("CREATE TABLE admin (id int not null Auto_increment, email text, ip text, entry_date text, name text, second_name text, PRIMARY KEY (id))")
 
 def create_general_admin_session_id_table() -> bool:
-    init_query("CREATE TABLE adminsession (id text, session_id text, time_stemp	text)", main_db_plus_database)
+    init_query("CREATE TABLE adminsession (id int, session_id text, time_stemp	text)")
 
 def create_general_admin_key_table():
-    init_query("CREATE TABLE adminveri (id text, veri text, active bool, time_stemp	text)", main_db_plus_database)
+    init_query("CREATE TABLE adminveri (id int, veri text, active bool, time_stemp	text)")
 
 def create_data_table(user, name) -> bool:
-    init_query("CREATE TABLE data (amount float, bankkonto float, day int, month int, year int, info text, full_year text, transsaction_id int)", main_db_plus_database)
+    init_query("CREATE TABLE data (amount float, bankkonto float, day int, month int, year int, info text, full_year text, transsaction_id int)")
 
 def create_user_invoice_db(id) -> bool:
-    init_query("CREATE TABLE user (name text, id text, infos text, rank text)", main_db_plus_database)
+    init_query("CREATE TABLE user (name text, id int, infos text, rank text)")
 
 # def create_user_log_db(rank:chr, id) -> bool:
 #     with sqlite3.connect('data/user/individual/'+rank+id+'/invoice'+id+'.db') as database:
-#         database.execute("CREATE TABLE user (ip_adress text, time_stemp text, side text)")
+#         database.execute("CREATE TABLE user (ip text, time_stemp text, side text)")
 
 def create_member_folder(id):
     os.makedirs(f'data/user/individual/m{id}')

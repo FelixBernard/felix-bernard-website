@@ -2,7 +2,7 @@ import flask
 from flask import jsonify, request, render_template, make_response, send_file, send_from_directory, current_app, abort, redirect, url_for
 import redis
 from scripts.pdf import erstelle_latex_pdf
-from scripts.user_handling import set_up_user
+from scripts.user_setup import set_up_user
 from server_config import *
 
 views = flask.Blueprint(__name__, "views")
@@ -20,13 +20,11 @@ def before():
 @views.route("/")
 def main():
     tmp_user = set_up_user(request, make_response(render_template("main/index.html")))
-    tmp_user.response = make_response(render_template("main/index.html", user=tmp_user))
     return tmp_user.response
 
 @views.route("/projects")
 def projects():
     tmp_user = set_up_user(request, make_response(render_template("main/projects.html")))
-    tmp_user.response = make_response(render_template("main/projects.html", user=tmp_user))
     return tmp_user.response
 
 @views.route("/profile")
@@ -35,7 +33,6 @@ def profile():
     if tmp_user.rank == 'client':
         abort(401)
     else:
-        tmp_user.response = make_response(render_template("auth/profile.html", user=tmp_user))
         return tmp_user.response
 
 @views.route("/pdf")
