@@ -31,7 +31,7 @@ def projects():
 def profile():
     tmp_user = set_up_user(request, make_response(render_template("auth/profile.html")))
     if tmp_user.rank == 'client':
-        abort(401)
+        tmp_user = set_up_user(request, make_response(render_template("main/profile.html")))
     else:
         return tmp_user.response
 
